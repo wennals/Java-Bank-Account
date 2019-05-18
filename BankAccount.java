@@ -1,55 +1,57 @@
 package com.william.ennals;
 
-public class BankAccount {
-    private String accountNumber;
+//enum AccountType {
+//    Checking,
+//    Savings,
+//    CreditCard
+//}
+
+class BankAccount {
+    private final String customerName;
+    private final String email;
+    private final String phoneNumber;
+    private final String accountType;
     private double balance;
-    private String customerName;
-    private String email;
-    private String phoneNumber;
 
-    // Initializes the BankAccount object using a blank constructor with default values.
-    public BankAccount(){
-        this("000-0000-00001", 0.00, "Username", "Customer Email", "(XXX) - XXX -XXXX");
-    }
 
-    // Initializes the BankAccount object with user specified values.
-    public BankAccount(String accountNumber, double balance, String customerName, String email, String phoneNumber){
-        this.accountNumber = accountNumber;
-        this.balance = balance;
+    public BankAccount(String accountType, String customerName, String email, String phoneNumber, double balance) {
+        this.accountType = accountType;
         this.customerName = customerName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+
+        if (balance < 0){
+            this.balance = 0.0;
+        } else {
+            this.balance = balance;
+        }
+
+        // based on type do something
+        createAccount(accountType);
     }
 
-    public void setAccountNumber (String accountNumber){
-        this.accountNumber = accountNumber;
+    private void createAccount(String accountType) {
+            switch (accountType) {
+            case "Checking":
+                new Checking(accountType, customerName, email, phoneNumber, balance, assignAccountNumber());
+
+                break;
+            case "Savings":
+                new Savings(accountType, customerName, email,
+                        phoneNumber, balance, 0.09, assignAccountNumber());
+                break;
+            case "CreditCard":
+                System.out.println("Credit Cards are not currently available");
+                break;
+        }
+    }
+    private String assignAccountNumber() {
+        int accountNumber = 1000000 + (int) (Math.random() * 9000000);
+        return String.valueOf(accountNumber);
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
 
-    public void setCustomerName(String customerName){
-        this.customerName = customerName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getAccountNumber() {
-        return accountNumber;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public String getCustomerName() {
+    private String getCustomerName() {
         return customerName;
     }
 
@@ -60,27 +62,59 @@ public class BankAccount {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    public double depositFunds(double deposit) {
-        if (deposit > 0) {
-          this.balance += deposit;
-            System.out.println("Your deposit of " + deposit + " was successful. Your new balance is: $" + this.balance);
-            return this.balance;
-        }
-        System.out.println("We are unable to process your deposit of  " + deposit + ", Deposits must be more than $0.00");
-        return this.balance;
+
+    private String getAccountType() {
+        return accountType;
     }
 
-    public double withdrawFunds(double withdrawal){
-            if (withdrawal > balance ){
-                System.out.println("We are unable to process your withdrawal of  " + withdrawal + ", you only have " + this.balance + " remaining.");
-                return this.balance;
-            } else if (withdrawal < 0){
-                System.out.println("We are unable to process your withdrawal of  " + withdrawal + ", please use a positive number. You still have " + this.balance + " remaining.");
-                return this.balance;
-            }
-            this.balance-= withdrawal;
-            System.out.println("Your withdrawal of " + withdrawal + " was successful. Your new balance is: $" + this.balance);
-            return this.balance;
+    private double getBalance() {
+        return balance;
+    }
+
+
+    private void depositFunds(double deposit) {
+        if (deposit > 0) {
+            balance += deposit;
+            System.out.println("Your deposit of " + deposit + " was successful. Your new balance is: $" + balance);
+        } else {
+            System.out.println("Sorry " + getCustomerName() + "we are unable to process your deposit of  " + deposit + ". Deposits must be more than $0.00");
         }
     }
+
+    public double withdrawFunds(double withdrawal) {
+        if (withdrawal > balance) {
+            System.out.println("We are unable to process your withdrawal of  " + withdrawal + ", you only have " + balance + " remaining.");
+            withdrawal = 0;
+            return withdrawal;
+        } else if (withdrawal < 0) {
+            System.out.println("We are unable to process your withdrawal of  " + withdrawal + ", please use a positive number. You still have " + balance + " remaining.");
+            withdrawal = 0;
+            return withdrawal;
+        } else {
+            balance -= withdrawal;
+            System.out.println("Your withdrawal of " + withdrawal + " was successful. Your new balance is: $" + balance);
+            return withdrawal;
+        }
+    }
+
+    public void transferFunds(double transfer, BankAccount fromAccount, BankAccount toAccount ){
+
+            if (transfer < 0){
+                System.out.println("Sorry " + fromAccount.getCustomerName() + "we are unable to process your transfer of  " + transfer +
+                        ". Transfers must be more than $0.00");
+            } else if (transfer > fromAccount.getBalance()) {
+                System.out.println("Sorry " + fromAccount.getCustomerName() + "we are unable to process your transfer of  " + transfer +
+                        "because this exceeds your balance of: " + fromAccount.getBalance());
+            } else {
+                toAccount.depositFunds(transfer);
+                System.out.println("You have successfully transferred " + transfer + " from your " +
+                                fromAccount.accountType + " account to your " + toAccount.accountType + " account.");
+                fromAccount.balance -= transfer;
+                System.out.println("Your " + fromAccount.getAccountType() + " account has a new balance of: " + fromAccount.balance);
+                System.out.println("Your " + toAccount.getAccountType() + " account has a new balance of: " + toAccount.balance);
+            }
+
+    }
+
+}
 

@@ -1,17 +1,21 @@
 package com.william.ennals;
 
-public class Main {
+class Main {
 
     public static void main(String[] args) {
-        BankAccount myAccount = new BankAccount("4849-8999-00001", 10_000,
-                "Wilt Chamberlain","wchamberlain@example.com", "281-330-8004");
 
-        myAccount.depositFunds(600);
-        myAccount.withdrawFunds(90);
-        myAccount.withdrawFunds(9000);
-        myAccount.depositFunds(-0.01);
-        myAccount.depositFunds(.52);
-        myAccount.withdrawFunds(-500);
+        BankAccount myChecking = new BankAccount("Checking", "Bob Sagget", "bsag@example.com",
+                "281-330-8004", 0);
+
+//        BankAccount mySavings = new BankAccount(AccountType.Savings, "Bob Sagget", "bsag@example.com",
+//                "281-330-8004", 0);
+//
+//        mySavings.depositFunds(1800);
+//        myChecking.depositFunds(3000);
+//        myChecking.transferFunds(200, myChecking, mySavings);
+
+
+
 
 
     }
