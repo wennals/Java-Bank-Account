@@ -4,15 +4,22 @@ class Main {
 
     public static void main(String[] args) {
 
-        BankAccount myChecking = new BankAccount("Checking", "Bob Sagget", "bsag@example.com",
+        Checking myChecking = new Checking(AccountType.CHECKING, "Bob Sagget", "bsag@example.com",
                 "281-330-8004", 0);
 
-//        BankAccount mySavings = new BankAccount(AccountType.Savings, "Bob Sagget", "bsag@example.com",
-//                "281-330-8004", 0);
-//
-//        mySavings.depositFunds(1800);
-//        myChecking.depositFunds(3000);
-//        myChecking.transferFunds(200, myChecking, mySavings);
+        Savings mySavings = new Savings(AccountType.SAVINGS, "Bob Sagget", "bsag@example.com",
+                "281-330-8004", 0, 0.09);
+        System.out.println("Checking account number: " + myChecking.getAccountNumber());
+        System.out.println("Savings account number: " + mySavings.getAccountNumber());
+       mySavings.depositFunds(1800);
+       myChecking.depositFunds(3000);
+       myChecking.transferFunds(200, myChecking, mySavings);
+       myChecking.withdrawFunds(4000);
+       myChecking.withdrawFunds(20);
+       myChecking.depositFunds(32);
+       myChecking.withdrawFunds(-3445);
+       myChecking.depositFunds(-2);
+
 
 
 

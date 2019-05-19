@@ -1,20 +1,15 @@
 package com.william.ennals;
 
-//enum AccountType {
-//    Checking,
-//    Savings,
-//    CreditCard
-//}
 
 class BankAccount {
     private final String customerName;
     private final String email;
     private final String phoneNumber;
-    private final String accountType;
+    private final AccountType accountType;
     private double balance;
 
 
-    public BankAccount(String accountType, String customerName, String email, String phoneNumber, double balance) {
+    public BankAccount(AccountType accountType, String customerName, String email, String phoneNumber, double balance) {
         this.accountType = accountType;
         this.customerName = customerName;
         this.email = email;
@@ -26,30 +21,23 @@ class BankAccount {
             this.balance = balance;
         }
 
-        // based on type do something
-        createAccount(accountType);
     }
 
-    private void createAccount(String accountType) {
+    private BankAccount createAccount(AccountType accountType) {
             switch (accountType) {
-            case "Checking":
-                new Checking(accountType, customerName, email, phoneNumber, balance, assignAccountNumber());
-
-                break;
-            case "Savings":
-                new Savings(accountType, customerName, email,
-                        phoneNumber, balance, 0.09, assignAccountNumber());
-                break;
-            case "CreditCard":
-                System.out.println("Credit Cards are not currently available");
+                case CHECKING:
+                    break;
+                case SAVINGS:
+                    break;
+                case CREDITCARD:
+                    System.out.println("Credit Cards are not currently available");
                 break;
         }
+        return null;
     }
-    private String assignAccountNumber() {
-        int accountNumber = 1000000 + (int) (Math.random() * 9000000);
-        return String.valueOf(accountNumber);
+    public int assignAccountNumber() {
+        return 1000000 + (int) (Math.random() * 9000000);
     }
-
 
     private String getCustomerName() {
         return customerName;
@@ -63,7 +51,7 @@ class BankAccount {
         return phoneNumber;
     }
 
-    private String getAccountType() {
+    private AccountType getAccountType() {
         return accountType;
     }
 
@@ -72,7 +60,8 @@ class BankAccount {
     }
 
 
-    private void depositFunds(double deposit) {
+
+    public void depositFunds(double deposit) {
         if (deposit > 0) {
             balance += deposit;
             System.out.println("Your deposit of " + deposit + " was successful. Your new balance is: $" + balance);
@@ -83,7 +72,7 @@ class BankAccount {
 
     public double withdrawFunds(double withdrawal) {
         if (withdrawal > balance) {
-            System.out.println("We are unable to process your withdrawal of  " + withdrawal + ", you only have " + balance + " remaining.");
+            System.out.println("We are unable to process your withdrawal of  " + withdrawal + ", you only have " + balance + " available.");
             withdrawal = 0;
             return withdrawal;
         } else if (withdrawal < 0) {
@@ -106,9 +95,9 @@ class BankAccount {
                 System.out.println("Sorry " + fromAccount.getCustomerName() + "we are unable to process your transfer of  " + transfer +
                         "because this exceeds your balance of: " + fromAccount.getBalance());
             } else {
-                toAccount.depositFunds(transfer);
+                toAccount.balance += transfer;
                 System.out.println("You have successfully transferred " + transfer + " from your " +
-                                fromAccount.accountType + " account to your " + toAccount.accountType + " account.");
+                                fromAccount.getAccountType() + " account to your " + toAccount.getAccountType() + " account.");
                 fromAccount.balance -= transfer;
                 System.out.println("Your " + fromAccount.getAccountType() + " account has a new balance of: " + fromAccount.balance);
                 System.out.println("Your " + toAccount.getAccountType() + " account has a new balance of: " + toAccount.balance);

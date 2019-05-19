@@ -2,21 +2,21 @@ package com.william.ennals;
 
 class Savings extends BankAccount {
 
-    private final String accountNumber;
+    private final int accountNumber;
     private final double interestRate;
 
-    public Savings(String accountType, String customerName, String email, String phoneNumber, double balance,
-                   double interestRate, String accountNumber) {
+    public Savings(AccountType accountType, String customerName, String email, String phoneNumber, double balance,
+                   double interestRate) {
         super(accountType, customerName, email, phoneNumber, balance);
         this.interestRate = interestRate;
-        this.accountNumber = accountNumber;
+        this.accountNumber = assignAccountNumber();
     }
 
     public double getInterestRate() {
         return interestRate;
     }
 
-    public String getAccountNumber() {
+    public int getAccountNumber() {
         return accountNumber;
     }
 }

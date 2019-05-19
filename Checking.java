@@ -2,14 +2,14 @@ package com.william.ennals;
 
 class Checking extends BankAccount {
 
-    private final String accountNumber;
+    public final int accountNumber;
 
-    public Checking(String accountType, String customerName, String email, String phoneNumber, double balance, String accountNumber) {
+    public Checking(AccountType accountType, String customerName, String email, String phoneNumber, double balance) {
         super(accountType, customerName, email, phoneNumber, balance);
-        this.accountNumber = accountNumber;
+        this.accountNumber = assignAccountNumber();
     }
 
-    public String getAccountNumber() {
+    public int getAccountNumber() {
         return accountNumber;
     }
 }
