@@ -1,21 +1,36 @@
 package com.william.ennals;
 
-class Savings extends BankAccount {
+class Savings extends AccountType {
 
-    private double interestRate;
-    private final int accountNumber;
-
-    public Savings( String customerName, String email, String phoneNumber, double balance) {
-        super(customerName, email, phoneNumber, balance);
-        this.interestRate = 0.09;
-        this.accountNumber = assignAccountNumber();
+    public Savings(double balance) {
+        super(balance);
     }
 
-    public double getInterestRate() {
-        return interestRate;
+    public Savings() {
     }
+
+    @Override
+    public int assignAccountNumber() {
+        return super.assignAccountNumber();
+    }
+
     @Override
     public int getAccountNumber() {
-        return accountNumber;
+        return super.getAccountNumber();
+    }
+
+    @Override
+    public double getBalance() {
+        return super.getBalance();
+    }
+
+    @Override
+    public void makeDeposit(double deposit) {
+        super.makeDeposit(deposit);
+    }
+
+    @Override
+    public double makeWithdrawal(double withdrawal) {
+        return super.makeWithdrawal(withdrawal);
     }
 }

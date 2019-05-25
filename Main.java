@@ -4,26 +4,30 @@ class Main {
 
     public static void main(String[] args) {
         // Phase 1: Execute code using Polymorphism
-        BankAccount myChecking = new Checking("Bob Sagget", "bsag@example.com", "281-330-8004", 10_000);
+        BankAccount myAccount = new BankAccount("Bob", "Sagget", 98958890, "bsag@example.com", "281-330-8004");
+        myAccount.createAccount(AccountOptions.CHECKING, "myFirstChecking");
+        AccountType myChecking = myAccount.getAccount("myFirstChecking");
 
         System.out.println(myChecking.getAccountNumber());
         System.out.println(myChecking.getBalance());
-        myChecking.depositFunds(999.00);
-        myChecking.withdrawFunds(998.99);
-        myChecking.withdrawFunds(9999.00);
+        myChecking.makeDeposit(999.00);
+        myChecking.makeWithdrawal(200.30);
+        myChecking.makeWithdrawal(-40);
 
-        BankAccount mySavings = new Savings("Bob Sagget", "bsag@example.com", "281-330-8004", 10_000);
+
+        myAccount.createAccount(AccountOptions.SAVINGS, "myFirstSavings");
+        AccountType mySavings = myAccount.getAccount("myFirstSavings");
+
 
         System.out.println(mySavings.getAccountNumber());
         System.out.println(mySavings.getBalance());
-        mySavings.depositFunds(999.00);
-        mySavings.withdrawFunds(998.99);
-        mySavings.withdrawFunds(9999.00);
-
-        // Phase 2: Execute Using Generics
-
+        mySavings.makeDeposit(999.00);
+        mySavings.makeWithdrawal(998.99);
+        mySavings.makeDeposit(9999.00);
+        myAccount.makeTransfer("myFirstSavings", "myFirstChecking", 500);
 
 
 
     }
 }
+

@@ -1,12 +1,11 @@
 package com.william.ennals;
 
-class Checking extends AccountType {
-
-    public Checking(double balance) {
+public class CreditCard extends AccountType {
+    public CreditCard(double balance) {
         super(balance);
     }
 
-    public Checking() {
+    public CreditCard() {
         super();
     }
 
@@ -25,15 +24,6 @@ class Checking extends AccountType {
         return super.getBalance();
     }
 
-    @Override
-    public void makeDeposit(double deposit) {
-        super.makeDeposit(deposit);
-    }
-
-    @Override
-    public double makeWithdrawal(double withdrawal) {
-        return super.makeWithdrawal(withdrawal);
-    }
 
 
 }
