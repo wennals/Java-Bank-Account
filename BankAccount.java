@@ -1,87 +1,115 @@
-package com.william.ennals;
+package com.williamEnnals;
 
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.*;
+public abstract class BankAccount {
 
-enum AccountOptions {
-    CHECKING,
-    SAVINGS,
-    CREDITCARD
-}
+    private long accountNumber;
+    private double balance;
+    private String typeOfAccount;
+    private List<String> recentTransactions;
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_RESET = "\u001B[0m";
 
-public class BankAccount {
-    private final String firstName;
-    private final String lastName;
-    private final int socialSecurityNumber;
-    private final String email;
-    private final String phoneNumber;
-    private Map<String, AccountType> customerAccounts;
-
-
-    public BankAccount(String firstName, String lastName, int socialSecurityNumber,  String email, String phoneNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.socialSecurityNumber = socialSecurityNumber;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.customerAccounts = new HashMap<>();
+    public BankAccount(double balance) {
+        if (balance < 0.00) {
+            this.balance = 0.00;
+        } else {
+            this.balance = balance;
+        }
+        this.accountNumber = assignAccountNumber();
+        this.recentTransactions = new ArrayList<>();
     }
 
+    public BankAccount() {
+        this.balance = 0.0;
+        this.accountNumber = assignAccountNumber();
+        this.recentTransactions = new ArrayList<>();
+    }
 
-    public void createAccount(AccountOptions accountOption, String accountName) {
-        if (this.customerAccounts.get(accountName) == null) {
-            switch (accountOption){
-                case CHECKING:
-                    customerAccounts.put(accountName, new Checking());
-                    break;
-                case SAVINGS:
-                    customerAccounts.put(accountName, new Savings());
-                    break;
-                case CREDITCARD:
-                    customerAccounts.put(accountName, new CreditCard());
-            }
+    public long assignAccountNumber() {
+        return (long) (Math.random() * 999999999) + 100000000;
+    }
+
+    public long getAccountNumber() {
+        return accountNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public String getTypeOfAccount() {
+        return typeOfAccount;
+    }
+
+    public List<String> getRecentTransactions() {
+        return recentTransactions;
+    }
+
+    public void depositFunds(double deposit) {
+        if (balance < 0) {
+            System.out.println("Your deposit was unsuccessful, try making a deposit of more than 0.00");
 
         } else {
-
-            System.out.println("An account of this name already exists");
+            balance += deposit;
+            System.out.println("Your deposit was successful, your new balance is: " + getBalance());
+            recentTransactions.add("Deposit: +" + deposit);
         }
     }
 
-
-
-    // Future update needs to ensure that the account numbers are unique
-
-
-    public String getfirstName() {
-        return firstName;
+    public double withdrawFunds(double withdrawal) {
+        if (withdrawal < 0) {
+            System.out.println("Your withdrawal was unsuccessful, try making a withdrawal of more than 0.00");
+            return 0.00;
+        } else if (withdrawal > getBalance()) {
+            System.out.println("Your withdrawal was unsuccessful because it exceeds your account balance");
+            return 0.00;
+        } else {
+            balance -= withdrawal;
+            System.out.println("Your withdrawal was successful, your new balance is: " + getBalance());
+            recentTransactions.add("Withdrawal: -" + withdrawal);
+            return withdrawal;
+        }
     }
 
-    public String lastName() {
-        return lastName;
-    }
+    public boolean transferFunds(double amount, BankAccount receivingAccount) {
+        if (amount < 0) {
+            return false;
+        }
 
-    public String getEmail() {
-        return email;
-    }
+        if (amount > getBalance()) {
+            return false;
+        }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+        balance -= amount;
+        receivingAccount.balance += amount;
+        recentTransactions.add("Transfer: -" + amount);
+        return true;
 
-    public AccountType getAccount(String accountName){
-            return customerAccounts.get(accountName);
-    }
-
-    public void makeTransfer(String fromAccount, String toAccount, double transfer){
-        AccountType sendingAccount = getAccount(fromAccount);
-        AccountType receivingAccount = getAccount(toAccount);
-        sendingAccount.outboundTransfer(transfer, receivingAccount);
-        System.out.println("You have successfully transferred " + transfer + " from account: " + fromAccount
-        + " it now has a balance of: " + sendingAccount.getBalance());
-        System.out.println("Your account: " + toAccount + " has received a transfer of " + transfer +
-                " it now has a balance of: " + receivingAccount.getBalance());
 
     }
 
+    public String recentTransactions(List recentTransactions) {
+        StringBuilder sb = new StringBuilder("Most recent transactions\n");
+        if(recentTransactions.isEmpty()){
+            return ANSI_CYAN + "No transactions have been made" + ANSI_RESET;
+        }
+        for (int i = 0; ((recentTransactions.size()) > 5 ? i<5: i<recentTransactions.size()); i++) {
+            sb.append("\t\t" + ANSI_CYAN + recentTransactions.get(i) + ANSI_RESET + "\n");
+
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return ("Account number: " + getAccountNumber() +
+                ", Type: " + getTypeOfAccount() +
+                ", Balance " + getBalance() + "\n" +
+                "\t\t" + recentTransactions(recentTransactions)
+        );
+
+    }
 }
-

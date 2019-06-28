@@ -1,21 +1,18 @@
-package com.william.ennals;
+package com.williamEnnals;
 
-public class CreditCard extends AccountType {
-    public CreditCard(double balance) {
-        super(balance);
-    }
+public class CreditCard extends BankAccount{
 
     public CreditCard() {
         super();
     }
 
     @Override
-    public int assignAccountNumber() {
+    public long assignAccountNumber() {
         return super.assignAccountNumber();
     }
 
     @Override
-    public int getAccountNumber() {
+    public long getAccountNumber() {
         return super.getAccountNumber();
     }
 
@@ -23,7 +20,4 @@ public class CreditCard extends AccountType {
     public double getBalance() {
         return super.getBalance();
     }
-
-
-
 }
