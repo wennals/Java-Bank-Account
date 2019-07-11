@@ -1,4 +1,4 @@
-package com.williamEnnals;
+package com.williamEnnals.classes.accounts;
 
 import java.util.List;
 

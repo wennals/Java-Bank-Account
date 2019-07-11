@@ -1,4 +1,4 @@
-package com.williamEnnals;
+package com.williamEnnals.classes.classTypes;
 
 public enum AccountTypes {
     CHECKINGS,

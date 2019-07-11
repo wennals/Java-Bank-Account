@@ -1,4 +1,4 @@
-package com.williamEnnals;
+package com.williamEnnals.classes.accounts;
 
 public class CreditCard extends BankAccount{
 

@@ -1,4 +1,10 @@
-package com.williamEnnals;
+package com.williamEnnals.classes;
+
+import com.williamEnnals.classes.accounts.BankAccount;
+import com.williamEnnals.classes.accounts.CheckingAccount;
+import com.williamEnnals.classes.accounts.CreditCard;
+import com.williamEnnals.classes.accounts.SavingsAccount;
+import com.williamEnnals.classes.classTypes.AccountTypes;
 
 import java.util.ArrayList;
 import java.util.HashMap;

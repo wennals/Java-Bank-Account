@@ -1,4 +1,4 @@
-package com.williamEnnals;
+package com.williamEnnals.classes;
 
 import java.util.HashMap;
 import java.util.Map;

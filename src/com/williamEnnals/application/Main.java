@@ -1,9 +1,15 @@
-package com.williamEnnals;
+/**
+ 1. Update the folder structure, then push to github
+ 2. Create Tests for the code (Research best way to test code)
+ 3. Add an option for running the test instead of the simulator so that either the test or simulator runs but not both
+ */
+package com.williamEnnals.application;
+
+import com.williamEnnals.classes.classTypes.AccountTypes;
+import com.williamEnnals.classes.User;
 
 import java.util.*;
-// Push the updated folder structure
-// Create Tests for the code (Junit)
-// Add an option for running the test instead of the simulator
+
 
 public class Main {
     public static final Scanner scanner = new Scanner(System.in);
