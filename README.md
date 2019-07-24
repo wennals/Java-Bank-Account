@@ -5,10 +5,11 @@ This program can be expanded by adding a bank class that would contain all of th
 
 ## How to execute in windows Terminal
 Compile
-=========
+-------
 - javac -s src/com/williamEnnals -d bin src/com/williamEnnals/classes/classTypes/AccountTypes.java src/com/williamEnnals/classes/\*.java src/com/williamEnnals/classes/accounts/\*.java src/com/williamEnnals/application/Main.java
 
 Execute
+-------
 - java -cp bin com.williamEnnals.application.Main
 
 ## How to push code to the github
