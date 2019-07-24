@@ -1,4 +1,4 @@
-package com.williamEnnals;
+package com.williamEnnals.database;
 
 public class DataSource {
 
